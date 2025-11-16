@@ -1,28 +1,31 @@
 return {
-	{
-		"mason-org/mason.nvim",
-		config = function()
-			require("mason").setup()
-		end,
-	},
-	{
-		"mason-org/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls" },
-			})
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			vim.lsp.enable({
-				"lua_ls",
-			})
-            vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
-      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
-		end,
-	},
+    {
+        "https://github.com/VonHeikemen/lsp-zero.nvim",
+        dependencies = {
+            "https://github.com/williamboman/mason.nvim",
+            "https://github.com/williamboman/mason-lspconfig.nvim",
+            "https://github.com/neovim/nvim-lspconfig",
+            "https://github.com/hrsh7th/cmp-nvim-lsp",
+            "https://github.com/hrsh7th/nvim-cmp",
+            "https://github.com/L3MON4D3/LuaSnip",
+        },
+        config = function()
+            local lsp_zero = require("lsp-zero")
+
+            lsp_zero.on_attach(function(client, bufnr)
+                lsp_zero.default_keymaps({ buffer = bufnr })
+            end)
+
+            require("mason").setup()
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "pyright",
+                    "rust_analyzer",
+                },
+                handlers = {
+                    lsp_zero.default_setup,
+                },
+            })           
+        end,
+    },
 }

@@ -13,6 +13,9 @@ return {
     "hrsh7th/nvim-cmp",
     config = function()
       local cmp = require("cmp")
+      local lsp_zero = require("lsp-zero")
+      lsp_zero.extend_cmp() -- 👈 Importante para integrarse
+
       require("luasnip.loaders.from_vscode").lazy_load()
 
       cmp.setup({
@@ -21,10 +24,12 @@ return {
             require("luasnip").lsp_expand(args.body)
           end,
         },
+
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
+
         mapping = cmp.mapping.preset.insert({
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -32,13 +37,29 @@ return {
           ["<C-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
+
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "luasnip" }, -- For luasnip users.
+          { name = "luasnip" },
         }, {
           { name = "buffer" },
+          { name = "path" },
         }),
       })
     end,
   },
+
+  -- Opcional: Lspsaga
+  {
+    "nvimdev/lspsaga.nvim",
+    event = "LspAttach",
+    config = function()
+      require("lspsaga").setup({
+        ui = {
+          border = "rounded",
+        },
+      })
+    end
+  },
 }
+
