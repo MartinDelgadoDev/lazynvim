@@ -78,3 +78,4 @@ Useful keymaps:
 - `<leader>gf`: format buffer (Roslyn formats C#)
 
 The existing plugins and general workflow are retained. LSP Zero was removed because this setup uses Neovim's native LSP API (available in Neovim 0.11+) and the current Mason integration. Lspsaga is declared only once.
+
