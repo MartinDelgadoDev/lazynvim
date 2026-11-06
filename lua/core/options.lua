@@ -1,5 +1,6 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
+vim.opt.clipboard = 'unnamedplus'
 
 vim.cmd('filetype indent plugin on')
 if not vim.g.syntax_on then
