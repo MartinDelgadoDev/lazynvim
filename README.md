@@ -5,12 +5,14 @@
 This configuration uses the current Roslyn language server through `seblyng/roslyn.nvim`.
 It requires Neovim 0.12+, the .NET 10 SDK/runtime, and the Roslyn language-server tool.
 
-### 1. Install Roslyn language server
+### 1. Install Roslyn language server and easydotnet
 
 Recommended Microsoft development feed:
 
 ```bash
 dotnet tool install -g roslyn-language-server --prerelease --source https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-impl/nuget/v3/index.json
+
+dotnet tool install -g EasyDotnet
 ```
 
 If it is already installed, update it with:
